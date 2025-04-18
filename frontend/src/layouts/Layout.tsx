@@ -8,11 +8,10 @@ import {
   UserPlus,
   Home,
   LogOut,
-  DogIcon,
+  Video,
 } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useAppTheme } from "../contexts/ThemeContext";
-import API from "../api/Api_Config";
 // import { Footer } from "antd/es/layout/layout";
 
 const { Header, Content } = AntLayout;
@@ -90,6 +89,15 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
                 label: (
                   <Link className="text-my_text_color" to="/">
                     Home
+                  </Link>
+                ),
+              },
+              {
+                key: "video",
+                icon: <Video className="text-my_text_color" size={16} />,
+                label: (
+                  <Link className="text-my_text_color" to="/video-chat">
+                    Video Call
                   </Link>
                 ),
               },
