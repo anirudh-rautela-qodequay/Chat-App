@@ -9,6 +9,6 @@ export default defineConfig({
   },
   server: {
     host: true, // allow access over network
-    allowedHosts: ["ending-pad-place-lyrics.trycloudflare.com"],
+    allowedHosts: ["ins-verbal-triangle-der.trycloudflare.com"],
   },
 });

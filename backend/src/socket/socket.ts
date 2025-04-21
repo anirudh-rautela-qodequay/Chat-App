@@ -7,7 +7,10 @@ const socketFile = (server: HttpServer) => {
 
   const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: [
+        "http://localhost:5173",
+        "https://ins-verbal-triangle-der.trycloudflare.com",
+      ],
       methods: ["GET", "POST"],
       credentials: true, // cookie,headers
     },
@@ -45,15 +48,24 @@ const socketFile = (server: HttpServer) => {
 
       console.log("Users in room: ", room, " =>", usersInRoom);
       if (usersInRoom.length > 1) {
-        io.to(room).emit("User:Joined", { email, id: socket.id });
+        socket.to(room).emit("User:Joined", { email, id: socket.id });
       }
       io.to(socket.id).emit("Room:Join", data);
     });
     socket.on("User:Call", ({ to, offer }) => {
-      io.to(to).emit("User:Incomming Call",{from:socket.id,offer})
+      io.to(to).emit("User:Incomming Call", { from: socket.id, offer });
     });
     socket.on("User:Call Accepted", ({ to, ans }) => {
       io.to(to).emit("User:Call Accepted", { from: socket.id, ans });
+    });
+    socket.on("peer:nego:needed", ({ to, offer }) => {
+      console.log("peer:nego:needed", offer);
+      io.to(to).emit("peer:nego:needed", { from: socket.id, offer });
+    });
+
+    socket.on("peer:nego:done", ({ to, ans }) => {
+      console.log("peer:nego:done", ans);
+      io.to(to).emit("peer:nego:final", { from: socket.id, ans });
     });
     socket.on("disconnect", () => {
       console.log("User Disconnected", socket.id);
