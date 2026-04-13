@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "start": "node dist/index.js",
-    "dev": "npx tsc -w & nodemon ./dist/index.js"
+    "dev": "concurrently \"npx tsc -w\" \"nodemon ./dist/index.js\""
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/multer": "^1.4.12",
     "@types/node": "^22.14.0",
+    "concurrently": "^9.1.2",
     "nodemon": "^3.1.9",
     "typescript": "^5.8.2"
   },

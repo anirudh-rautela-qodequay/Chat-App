@@ -25,6 +25,10 @@ if (!process.env.JWT_SECRET) {
   console.warn("JWT secret missing");
   process.exit(1);
 }
+if (!process.env.PORT) {
+  console.warn("PORT missing");
+  process.exit(1);
+}
 // Express example
 
 app.use(
@@ -50,7 +54,7 @@ app.all("*", (req, res) => {
   });
 });
 // Start the server
-const server = httpServer.listen(process.env.PORT || 8080, () => {
+const server = httpServer.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT || 8080}`);
   console.log(`http://localhost:${process.env.PORT}`);
 });
